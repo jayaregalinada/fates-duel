@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="./uplift-favicon-32x32.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vanilla App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&family=Roboto+Slab:wght@800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="root">
+      <div id="enemy-container">
+        <div id="enemy-cards" class="cards-container"></div>
+        <div id="enemy-info" class="info-container">
+          <div id="enemy-hero" class="hero inverted"><span>Enemy Hero...</span></div>
+          <div id="enemy-health" class="health inverted"></div>
+          <div id="enemy-mana" class="mana inverted"></div>
+        </div>
+      </div>
+
+      <div id="battlefield">
+        <div id="enemy-minions" class="minions-container"></div>
+        <div id="player-minions" class="minions-container"></div>
+      </div>
+
+      <div id="player-container">
+        <div id="player-info" class="info-container">
+          <div id="player-hero" class="hero"><span>Player Hero...</span></div>
+          <div id="player-health" class="health"></div>
+          <div id="player-mana" class="mana"></div>
+        </div>
+        <div id="player-cards" class="cards-container"></div>
+      </div>
+    </div>
+    <!--    👇 Adding type="module" will make javascript as module syntax -->
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

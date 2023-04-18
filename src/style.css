@@ -1,0 +1,555 @@
+:root {
+  --color-black: #020617;
+  --color-white: #f8fafc;
+
+  --art-scale-ratio: 1.1;
+  --art-aspect-ratio: 5.5/7;
+
+  --transition-time: 0.3s;
+
+  --card-max-width: 214px;
+  --card-max-height: 300px;
+  --card-aspect-ratio: 5/7;
+  --card-art-aspect-ratio: var(--art-aspect-ratio);
+  --card-minion-bg-color: #f59e0b;
+  --card-minion-border-color: #92400e;
+  --card-spell-bg-color: #14b8a6;
+  --card-spell-border-color: #115e59;
+  --card-weapon-bg-color: #0ea5e9;
+  --card-weapon-border-color: #075985;
+  --card-border-color: #431407;
+  --card-border-radius: 5px;
+  --card-description-padding: 10px;
+  --card-distance: 4rem;
+  --card-scale-ratio: 1.3;
+
+  --minion-aspect-ratio: var(--card-art-aspect-ratio);
+  --minion-border-color: #1c1917;
+  --minion-bg-color: #57534e;
+  --minion-active-border-color: #22c55e;
+  --minion-sick-color: #a3e635;
+  --minion-attack-bg-color: #e11d48;
+  --minion-health-bg-color: #65a30d;
+
+  --player-health-color: #65a30d;
+  --player-health-bg-color: #1a2e05;
+  --player-mana-color: #2563eb;
+  --player-mana-border-color: #bfdbfe;
+  --player-mana-inactive-color: #475569;
+
+  --font-primary: 'Roboto Slab', serif;
+  --font-secondary: 'Lato', sans-serif;
+
+  font-family: var(--font-primary);
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: #f9fafb;
+  background-color: #303846;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+* {
+  padding: 0;
+  margin: 0;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+body {
+  display: grid;
+  place-content: center;
+}
+img {
+  width: 100%;
+}
+#root {
+  display: grid;
+  grid-template-areas:
+    'enemy'
+    'battlefield'
+    'player';
+  grid-template-rows: 20% 50% 30%;
+  width: 100vw;
+  height: 100vh;
+}
+
+#enemy-container {
+  grid-area: enemy;
+  grid-template-columns: 1fr 0.2fr;
+}
+#battlefield {
+  grid-area: battlefield;
+  display: grid;
+  grid-template-rows: repeat(2, 50%);
+  row-gap: 1rem;
+}
+#player-container {
+  grid-area: player;
+  grid-template-columns: 0.2fr 1fr;
+}
+#player-container,
+#enemy-container {
+  display: grid;
+  align-items: end;
+}
+
+.card {
+  max-height: var(--card-max-height);
+  max-width: var(--card-max-width);
+  position: relative;
+  z-index: 2;
+  border-radius: var(--card-border-radius);
+  border-width: var(--card-border-radius);
+  border-style: solid;
+  overflow: hidden;
+  display: grid;
+  box-shadow: 0 0 0 5px var(--color-black);
+  transition: all var(--transition-time);
+  cursor: pointer;
+}
+
+.card:not(:first-child) {
+  margin-left: calc(var(--card-distance) * -1);
+}
+
+.card .heading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2rem auto;
+  column-gap: 1rem;
+}
+
+.card .name {
+  font-weight: 800;
+  text-align: left;
+  text-shadow: 0 1px 2px rgb(52, 52, 52);
+  font-size: 1rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: var(--font-primary);
+}
+
+.card .mana {
+  text-align: center;
+  padding: 2px;
+  border-bottom-right-radius: var(--card-border-radius);
+}
+
+.card .name,
+.card .mana {
+  position: relative;
+  z-index: 9;
+}
+
+.card .image {
+  aspect-ratio: var(--card-art-aspect-ratio);
+  overflow: hidden;
+}
+
+.card .description {
+  font-size: 1rem;
+  font-family: var(--font-secondary);
+  padding: var(--card-description-padding);
+  padding-bottom: 2rem;
+  width: calc(100% - calc(var(--card-description-padding) * 2));
+  left: 0;
+  bottom: -48%;
+  position: absolute;
+  height: 35%;
+  transition: all var(--transition-time);
+  color: #020617;
+}
+
+.card .stats {
+  display: grid;
+  grid-template-columns: 3rem auto 3rem;
+  font-size: 1rem;
+  position: relative;
+  text-align: center;
+  height: 2rem;
+}
+
+.card .stat {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  transition: all var(--transition-time);
+}
+
+.card .stat.attack,
+.card .stat.health {
+  font-size: 1.5rem;
+}
+
+.card .stat.type {
+  font-size: 0.8rem;
+  font-family: var(--font-secondary);
+}
+
+.card .image img {
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+  object-fit: cover;
+  transition: all var(--transition-time);
+}
+.card.card-spell .stat:not(.type) {
+  opacity: 0;
+}
+
+.card:hover .description {
+  bottom: 0;
+}
+.card:hover .stat.attack {
+  border-top-right-radius: var(--card-border-radius);
+}
+.card:hover .stat.health {
+  border-top-left-radius: var(--card-border-radius);
+}
+.card:hover .image img {
+  transform: scale(1.2);
+}
+
+.card.card-minion {
+  border-color: var(--card-minion-border-color);
+}
+.card.card-minion,
+.card.card-minion .description,
+.card.card-minion .stats {
+  background-color: var(--card-minion-bg-color);
+}
+.card.card-minion .mana,
+.card.card-minion .stat:not(.type) {
+  background-color: var(--card-minion-border-color);
+}
+
+.card.card-weapon {
+  border-color: var(--card-weapon-border-color);
+}
+.card.card-weapon,
+.card.card-weapon .description,
+.card.card-weapon .stats {
+  background-color: var(--card-weapon-bg-color);
+}
+.card.card-weapon .mana,
+.card.card-weapon .stat:not(.type) {
+  background-color: var(--card-weapon-border-color);
+}
+
+.card.card-spell,
+.card.card-spell .stats {
+  border-color: var(--card-spell-border-color);
+}
+.card.card-spell,
+.card.card-spell .description,
+.card.card-spell .stats {
+  background-color: var(--card-spell-bg-color);
+}
+.card.card-spell .mana,
+.card.card-spell .stat:not(.type) {
+  background-color: var(--card-spell-border-color);
+}
+
+/**
+ * Effect to enemy's cards are cut out
+ */
+#enemy-container .card {
+  /* transform: translateY(-5rem); */
+}
+
+#player-container .card {
+  width: 100%;
+}
+
+#player-container .card:hover {
+  transform: translateY(-4rem) scale(var(--card-scale-ratio));
+  box-shadow: 0 0 15px 5px var(--color-white);
+  z-index: 999;
+}
+#player-container .card:hover ~ .card,
+#player-cards-container .card:focus-within ~ .card {
+  transform: translateX(var(--card-distance));
+}
+
+.card.card-back {
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border-color: #2e2216;
+  background-color: #2e2216;
+}
+
+.card.card-back .image {
+  height: 100%;
+}
+
+.cards-container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  height: 100%;
+  align-items: center;
+}
+
+#enemy-cards {
+  column-gap: 0.2rem;
+  /* margin-top: -4rem; */
+}
+
+/**
+ * Minions
+ */
+.minions-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 1rem;
+}
+
+.minion {
+  width: 150px;
+  position: relative;
+  border-color: var(--minion-border-color);
+  border-width: var(--card-border-radius);
+  border-style: solid;
+  background-color: var(--minion-bg-color);
+  transition: all var(--transition-time);
+  cursor: pointer;
+}
+
+.minion.minion-tired {
+  /* filter: grayscale(1); */
+  border-color: var(--minion-border-color);
+}
+
+.minion:hover {
+  box-shadow: 0 0 5px 0 var(--minion-border-color);
+}
+
+.minion:hover .image img {
+  transform: scale(1.1);
+}
+
+.minion .sleeping {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.minion .summoning-sickness span {
+  color: var(--minion-sick-color);
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 4rem;
+  opacity: 0;
+  animation: sleeping 3s infinite linear;
+  z-index: 9;
+  font-family: var(--font-primary);
+}
+.minion .summoning-sickness span:nth-child(2n) {
+  animation-delay: 1s;
+}
+.minion .summoning-sickness span:nth-child(3n) {
+  animation-delay: 2s;
+}
+
+@keyframes sleeping {
+  0% {
+    transform: translate(0, 0) scale(0.3);
+    opacity: 0;
+  }
+  1% {
+    opacity: 0;
+  }
+  3% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate(90%, -50%) scale(0.65);
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(180%, -100%) scale(1);
+    opacity: 0;
+  }
+}
+
+.minion .image img {
+  vertical-align: middle;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: relative;
+  z-index: 1;
+}
+
+.minion .stats {
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+  font-size: 2rem;
+  text-align: center;
+  align-items: center;
+}
+
+.minion .image {
+  aspect-ratio: var(--minion-aspect-ratio);
+  overflow: hidden;
+}
+
+.minion .image img {
+  transition: all var(--transition-time);
+}
+
+.minion .stat {
+  width: 100%;
+  padding: 5px;
+}
+
+.minion .stat.attack {
+  background-color: var(--minion-attack-bg-color);
+}
+.minion .stat.health {
+  background-color: var(--minion-health-bg-color);
+}
+
+#enemy-minions {
+  align-items: flex-end;
+}
+
+/**
+ * Turns style for player
+ */
+.start-turn.player-turn #player-minions .minion:not(.minion-tired) {
+  animation: glowing 5s infinite;
+}
+
+.start-turn.player-turn #player-minions .minion:not(.minion-tired):hover {
+  border-color: var(--minion-active-border-color);
+}
+
+@keyframes glowing {
+  0%,
+  100% {
+    box-shadow: 0 0 10px 5px var(--minion-active-border-color);
+  }
+  50% {
+    box-shadow: 0 0 5px 0 var(--minion-active-border-color);
+  }
+}
+
+#enemy-container .info-container,
+#player-container .info-container {
+  display: grid;
+  height: 100%;
+  align-items: center;
+  grid-template-rows: auto 2rem 2rem;
+  align-content: center;
+  row-gap: 0.5rem;
+}
+.info-container .health,
+.info-container .mana {
+  height: 2rem;
+  position: relative;
+}
+.info-container .health {
+  width: 100%;
+  background-color: var(--player-mana-inactive-color);
+}
+.info-container .health .value {
+  height: 2rem;
+  background-color: var(--player-health-color);
+}
+.info-container .health .text-value {
+  font-size: 1.5rem;
+  height: 2rem;
+  line-height: 2rem;
+  font-family: var(--font-primary);
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.info-container .mana {
+  display: flex;
+  gap: 10px;
+  width: calc(100% - 10px);
+  padding: 0 5px;
+  align-items: center;
+  position: relative;
+}
+.info-container .mana.inverted {
+  flex-direction: row-reverse;
+}
+.info-container .mana .value,
+.info-container .mana .no-value {
+  aspect-ratio: 1/1;
+  border-width: 2px;
+  border-style: solid;
+  border-color: transparent;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+.info-container .mana .value {
+  background-color: var(--player-mana-color);
+  border-color: var(--player-mana-border-color);
+}
+.info-container .mana .no-value {
+  background-color: var(--player-mana-inactive-color);
+}
+.info-container .hero {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 150px auto;
+  text-align: left;
+}
+.info-container .hero.inverted {
+  grid-template-columns: auto 150px;
+  text-align: right;
+}
+.info-container .hero .name-container {
+  display: grid;
+  align-items: center;
+  align-content: center;
+}
+.info-container .hero .name-container p {
+  margin: 0;
+}
+.info-container .hero .name-container .name {
+  font-size: 1.3rem;
+}
+.info-container .hero .name-container .sub-name {
+  font-size: 0.8rem;
+  font-family: var(--font-secondary);
+}
+
+#player-health,
+#player-health .value {
+  border-radius: 0 10px 10px 0;
+}
+#enemy-health,
+#enemy-health .value {
+  border-radius: 10px 0 0 10px;
+}
