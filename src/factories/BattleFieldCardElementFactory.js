@@ -14,7 +14,7 @@ function createSummoningSicknessEffect() {
 }
 
 /**
- * @param {import('../Card').default} card
+ * @param {import('../entities/Card').default} card
  */
 function BattleFieldCardElementFactory(card) {
   const el = document.createElement('div');

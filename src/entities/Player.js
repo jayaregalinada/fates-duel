@@ -1,4 +1,4 @@
-import shuffleCards from './utils/shuffleCards';
+import shuffleCards from '../utils/shuffleCards';
 
 export const MAX_MANA = 10;
 export const MIN_MANA = 0;
@@ -6,11 +6,11 @@ export const MAX_HEALTH = 100;
 const MANA_INCREMENT = 1;
 
 /**
- * @param {string} name 
- * @param {import('./Card').default[]} cardsData 
- * @param {import('./Hero').default} hero 
+ * @param {string} name
+ * @param {import('./Card').default[]} cardsData
+ * @param {import('./Hero').default} hero
  */
-export default function Player(name, cardsData, hero) {
+function Player(name, cardsData, hero) {
   this.name = name;
   this.health = MAX_HEALTH;
   this.deck = shuffleCards(cardsData);
@@ -50,7 +50,9 @@ export default function Player(name, cardsData, hero) {
 
   this.deductMana = (mana) => {
     this.mana -= mana;
-  }
+  };
 
   this.isDead = () => this.health <= 0;
 }
+
+export default Player;

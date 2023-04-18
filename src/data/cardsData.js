@@ -1,4 +1,4 @@
-import { MinionCard, SpellCard, WeaponCard } from '../Card';
+import { MinionCard, SpellCard, WeaponCard } from '../entities/Card';
 
 export default [
   new MinionCard('Ironclad Golem', 5, 7, 6, 'A sturdy golem built for battle'),

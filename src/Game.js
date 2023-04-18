@@ -1,4 +1,4 @@
-import Player from './Player';
+import Player from './entities/Player';
 import GameRenderer from './renderers/GameRenderer';
 import GameEvent from './events/GameEvent';
 

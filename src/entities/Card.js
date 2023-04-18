@@ -1,4 +1,4 @@
-import CardElementFactory from './factories/CardElementFactory';
+import CardElementFactory from '../factories/CardElementFactory';
 
 export const TYPES = {
   minion: 'minion',
@@ -49,7 +49,7 @@ function Card(
   };
 
   /**
-   * @param {import('./Game').default} game
+   * @param {import('../Game').default} game
    */
   this.action = (game) => {
     fn(game);

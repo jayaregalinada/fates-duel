@@ -1,4 +1,4 @@
-import Hero from '../Hero';
+import Hero from '../entities/Hero';
 
 export default [
   new Hero(

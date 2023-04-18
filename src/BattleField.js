@@ -1,9 +1,9 @@
-import { TYPES } from './Card';
+import { TYPES } from './entities/Card';
 import BattleEvent, { EVENT_TYPES } from './events/BattleEvent';
 
 /**
- * @param {import('./Player').default} player
- * @param {import('./Player').default} enemy
+ * @param {import('./entities/Player').default} player
+ * @param {import('./entities/Player').default} enemy
  */
 export default function BattleField(player, enemy) {
   /**
@@ -28,13 +28,13 @@ export default function BattleField(player, enemy) {
   };
 
   /**
-   * @param {import('./Player').default|null} thePlayer
-   * @returns {import('./Player').default}
+   * @param {import('./entities/Player').default|null} thePlayer
+   * @returns {import('./entities/Player').default}
    */
   const getCurrentPlayer = (thePlayer = null) => {
     /**
      * This will replace the argument thePlayer from the game's current player if not provided
-     * @type {import('./Player').default}
+     * @type {import('./entities/Player').default}
      */
     const currentPlayer = thePlayer ?? game.currentPlayer();
 
@@ -42,9 +42,9 @@ export default function BattleField(player, enemy) {
   };
 
   /**
-   * @param {import('./Player').default|null} enemyPlayer
+   * @param {import('./entities/Player').default|null} enemyPlayer
    *
-   * @returns {import('./Player').default}
+   * @returns {import('./entities/Player').default}
    */
   const getEnemyPlayer = (enemyPlayer = null) => {
     const theEnemyPlayer = enemyPlayer ?? game.currentEnemy();
@@ -53,8 +53,8 @@ export default function BattleField(player, enemy) {
   };
 
   /**
-   * @param {import('./Card').default} card
-   * @param {import('./Player').default} currentPlayer
+   * @param {import('./entities/Card').default} card
+   * @param {import('./entities/Player').default} currentPlayer
    */
   const summon = (card, currentPlayer) => {
     if (card.manaCost <= currentPlayer.mana === false) {
@@ -64,7 +64,7 @@ export default function BattleField(player, enemy) {
   };
 
   /**
-   * @param {import('./Card').default[]} minionCards
+   * @param {import('./entities/Card').default[]} minionCards
    */
   const removeFatigue = (minionCards) => {
     for (let i = 0; i < minionCards.length; i += 1) {
@@ -86,8 +86,8 @@ export default function BattleField(player, enemy) {
   /**
    * Add minion to the battle field.
    *
-   * @param {import('./Card').default} card
-   * @param {import('./Player').default} thePlayer
+   * @param {import('./entities/Card').default} card
+   * @param {import('./entities/Player').default} thePlayer
    */
   this.addToField = (cardIndex, thePlayer = null) => {
     const currentPlayer = getCurrentPlayer(thePlayer);
@@ -119,7 +119,7 @@ export default function BattleField(player, enemy) {
    *
    * @param {number} cardIndex
    * @param {number} cardTargetIndex
-   * @param {import('./Player').default|null} thePlayer
+   * @param {import('./entities/Player').default|null} thePlayer
    */
   this.addWeapon = (cardIndex, cardTargetIndex, thePlayer = null) => {
     const currentPlayer = getCurrentPlayer(thePlayer);
@@ -133,7 +133,7 @@ export default function BattleField(player, enemy) {
     }
 
     /**
-     * @type {import('./Card').default}
+     * @type {import('./entities/Card').default}
      */
     const cardTarget = this.fields[currentPlayer.symbol][cardTargetIndex];
 
@@ -160,8 +160,8 @@ export default function BattleField(player, enemy) {
    *
    * @param {number} cardIndex
    * @param {number} cardTargetIndex
-   * @param {import('./Player').default} targetPlayer
-   * @param {import('./Player').default|null} thePlayer
+   * @param {import('./entities/Player').default} targetPlayer
+   * @param {import('./entities/Player').default|null} thePlayer
    */
   this.addSpell = (
     cardIndex,
@@ -180,7 +180,7 @@ export default function BattleField(player, enemy) {
     }
 
     /**
-     * @type {import('./Card').default}
+     * @type {import('./entities/Card').default}
      */
     const cardTarget = this.fields[targetPlayer.symbol][cardTargetIndex];
 
@@ -210,12 +210,12 @@ export default function BattleField(player, enemy) {
     const enemyPlayer = getEnemyPlayer(targetPlayer);
 
     /**
-     * @type {import('./Card').default}
+     * @type {import('./entities/Card').default}
      */
     const card = this.fields[currentPlayer.symbol][cardIndex];
 
     /**
-     * @type {import('./Card').default}
+     * @type {import('./entities/Card').default}
      */
     const targetCard = this.fields[enemyPlayer.symbol][targetCardIndex];
 

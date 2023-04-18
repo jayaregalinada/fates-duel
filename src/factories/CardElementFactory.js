@@ -44,7 +44,7 @@ export function createStats(...stats) {
 }
 
 /**
- * @param {import('../Card').default|null} card
+ * @param {import('../entities/Card').default|null} card
  */
 function CardElementFactory(card) {
   const el = document.createElement('div');

@@ -30,7 +30,7 @@ function createHealthValue(health) {
 }
 
 /**
- * @param {import('../Hero').default} hero
+ * @param {import('../entities/Hero').default} hero
  */
 function createHero(hero, inverted = false) {
   const elements = [];
@@ -64,7 +64,7 @@ function createHero(hero, inverted = false) {
 }
 
 /**
- * @param {import('../Player').default} player
+ * @param {import('../entities/Player').default} player
  */
 function PlayerInfoElementFactory(player, inverted = false) {
   return {
