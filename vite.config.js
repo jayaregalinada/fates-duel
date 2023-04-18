@@ -15,4 +15,5 @@ export default defineConfig({
     emptyOutDir: true,
   },
   publicDir: '../public',
+  base: '/fates-duel/',
 });
